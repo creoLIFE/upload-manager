@@ -220,6 +220,30 @@ class ImageManagerTest extends Tester\TestCase
     }
 
 
+    function testPreprocessor()
+    {
+        $this->imageManager->setPreprocessor(function(\Nette\Utils\Image $image) {
+            return 'err';
+        });
+
+        $filePath = TEMP_DIR . '/test-image-big.jpg';
+
+        copy(__DIR__ . '/data/test-image-big.jpg', $filePath);
+
+        $file = new \SplFileInfo($filePath);
+
+        $fileUpload = new \Nette\Http\FileUpload([
+            'name' => $file->getBasename(),
+            'type' => $file->getType(),
+            'size' => $file->getSize(),
+            'tmp_name' => $filePath,
+            'error' => 0
+        ]);
+
+        $uploaded = $this->imageManager->upload($fileUpload);
+    }
+
+
 }
 
 

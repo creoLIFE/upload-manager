@@ -48,6 +48,9 @@ class ImageManager extends Object implements IUploadManager
         ]
     ];
 
+    /** @var NULL|callable */
+    private $preprocessor = NULL;
+
     /** @var NULL|int */
     private $quality = NULL;
 
@@ -95,6 +98,15 @@ class ImageManager extends Object implements IUploadManager
         if ($type !== NULL) {
             $this->setType($type);
         }
+    }
+
+
+    /**
+     * @param callable $preprocessor
+     */
+    public function setPreprocessor(callable $preprocessor)
+    {
+        $this->preprocessor = $preprocessor;
     }
 
     /**
@@ -229,6 +241,10 @@ class ImageManager extends Object implements IUploadManager
 
         if ($this->saveOriginal) {
             $image->save($path . '/orig_' . $filename);
+        }
+
+        if ($this->preprocessor !== NULL) {
+            $image = $this->preprocessor->__invoke($image);
         }
 
         if ($this->type !== NULL) {
