@@ -1,32 +1,41 @@
 {
-  "name": "creolife/upload-manager",
-  "type": "library",
-  "description": "Upload manager for Nette framework",
-  "keywords": ["nette", "upload", "file upload"],
-  "homepage": "http://ondraplsek.cz",
-  "license": ["MIT"],
-  "authors": [
-    {
-      "name": "Ondřej Plšek",
-      "homepage": "http://ondraplsek.cz",
-      "role": "Developer"
+    "name": "ondrs/upload-manager",
+    "type": "library",
+    "description": "Upload manager for Nette framework",
+    "keywords": [
+        "nette",
+        "upload",
+        "file upload"
+    ],
+    "homepage": "http://ondraplsek.cz",
+    "license": [
+        "MIT"
+    ],
+    "version": "0.3.1",
+    "authors": [
+        {
+            "name": "Ondřej Plšek",
+            "homepage": "http://ondraplsek.cz",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "nette/bootstrap": "~2.3.0",
+        "nette/di": "~2.3.0",
+        "nette/finder": "~2.3.0",
+        "nette/http": "~2.3.0",
+        "nette/neon": "~2.3.0",
+        "nette/utils": "~2.3.0"
+    },
+    "require-dev": {
+        "nette/tester": "~1.7.0",
+        "janmarek/mockista": "~1.1.0",
+        "jakub-onderka/php-parallel-lint": "0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
     }
-  ],
-  "require": {
-    "php": ">=5.4.0",
-    "nette/bootstrap": "~2.3.0",
-    "nette/di": "~2.3.0",
-    "nette/finder": "~2.3.0",
-    "nette/http": "~2.3.0",
-    "nette/neon": "~2.3.0",
-    "nette/utils":"~2.3.0"
-  },
-  "require-dev": {
-    "nette/tester": "~1.7.0",
-    "janmarek/mockista": "~1.1.0",
-    "jakub-onderka/php-parallel-lint": "0.*"
-  },
-  "autoload": {
-    "classmap": ["src/"]
-  }
 }
