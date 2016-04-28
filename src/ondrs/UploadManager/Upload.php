@@ -2,16 +2,13 @@
 
 namespace ondrs\UploadManager;
 
-
 use Nette\Http\FileUpload;
 use Nette\Http\Request;
 use Nette\Object;
 use SplFileInfo;
 
-
 class Upload extends Object
 {
-
     /** @var Request */
     private $httpRequest;
 
@@ -81,7 +78,6 @@ class Upload extends Object
         return $this->imageManager;
     }
 
-
     /**
      * @param NULL|string $dir
      * @return SplFileInfo[]
@@ -98,7 +94,11 @@ class Upload extends Object
 
                 foreach ($file as $f) {
                     try {
-                        $uploadedFiles[] = $this->singleFileToDir($f, $dir);
+                        if ($f instanceof FileUpload) {
+                            $uploadedFiles[] = $this->singleFileToDir($f, $dir);
+                        } else {
+                            throw new UploadErrorException(UPLOAD_ERR_NO_FILE);
+                        }
                     } catch (UploadErrorException $e) {
                         $this->onError($f, $e);
                     }
@@ -106,7 +106,11 @@ class Upload extends Object
 
             } else {
                 try {
-                    $uploadedFiles[] = $this->singleFileToDir($file, $dir);
+                    if ($file instanceof FileUpload) {
+                        $uploadedFiles[] = $this->singleFileToDir($file, $dir);
+                    } else {
+                        throw new UploadErrorException(UPLOAD_ERR_NO_FILE);
+                    }
                 } catch (UploadErrorException $e) {
                     $this->onError($file, $e);
                 }
@@ -117,7 +121,6 @@ class Upload extends Object
 
         return $uploadedFiles;
     }
-
 
     /**
      * @param FileUpload $fileUpload
@@ -145,6 +148,4 @@ class Upload extends Object
 
         return $uploadedFile;
     }
-
-
-} 
+}
